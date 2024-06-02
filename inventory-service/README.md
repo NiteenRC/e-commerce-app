@@ -53,13 +53,13 @@ aws ecr get-login-password --region us-east-2 | docker login --username AWS --pa
 Creating EKS Cluster
 
 ```bash
-eksctl create cluster --name nc-cluster --version 1.28 --nodes=1 --node-type=t2.small --region us-east-2
+eksctl create cluster --name e-commerce-cluster --version 1.28 --nodes=1 --node-type=t2.small --region us-east-2
 ```
 
 Update kube-config to connect to the newly created EKS cluster:
 
 ```bash
-aws eks --region us-east-2 update-kubeconfig --name nc-cluster
+aws eks --region us-east-2 update-kubeconfig --name e-commerce-cluster
 ```
 
 ### Deploying Kubernetes Resources

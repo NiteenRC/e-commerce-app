@@ -1,0 +1,60 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: inventory-namespace
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inventory-deployment
+  namespace: inventory-namespace
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: inventory-deployment
+  template:
+    metadata:
+      labels:
+        app: inventory-deployment
+    spec:
+      containers:
+        - name: inventory-deployment
+          image: niteenjava/inventory-app:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: "prod"
+            - name: RDS_HOST
+              value: "database-2.ct2qmugo0eze.us-east-2.rds.amazonaws.com"
+            - name: RDS_PORT
+              value: "3306"
+            - name: RDS_DATABASE
+              value: "inventory"
+            - name: RDS_USER
+              value: "root"
+            - name: RDS_PASSWORD
+              value: "password"
+        - name: mysql
+          image: mysql:latest
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "password"
+            - name: MYSQL_DATABASE
+              value: "inventory"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inventory-deployment-service
+  namespace: inventory-namespace
+spec:
+  selector:
+    app: inventory-deployment
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
