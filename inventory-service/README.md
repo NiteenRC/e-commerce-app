@@ -94,3 +94,24 @@ aws eks delete-nodegroup --cluster-name <your-cluster-name> --nodegroup-name <yo
 aws eks delete-cluster --name <your-cluster-name>
 aws eks describe-cluster --name <your-cluster-name>
 ```
+
+Check the AWS cost
+
+```bash
+https://us-east-1.console.aws.amazon.com/costmanagement/home?region=us-east-2#/home
+```
+
+Delete EKS cluster
+
+```bash
+aws eks list-nodegroups --cluster-name CLUSTER_NAME
+aws eks delete-nodegroup --cluster-name CLUSTER_NAME --nodegroup-name NODEGROUP_NAME
+aws eks delete-cluster --name CLUSTER_NAME
+````
+
+Delete AWS instances
+
+```bash
+aws ec2 describe-instances
+aws ec2 terminate-instances --instance-ids <INSTANCE_ID>
+```
