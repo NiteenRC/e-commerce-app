@@ -1,6 +1,6 @@
 server:
   port: 8083
-it
+
 spring:
   datasource:
     url: jdbc:h2:mem:testdb
